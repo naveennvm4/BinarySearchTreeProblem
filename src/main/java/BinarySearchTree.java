@@ -1,5 +1,28 @@
-public class BinarySearchTree {
-    public static void main(String[] args) {
-        System.out.println("Welcome to Binary SearchTree Problem");
+public class BinarySearchTree<K extends Comparable<K>> {
+    private BinarySearchTreeNode<K> root;
+
+    public void add(K key) {
+        this.root = this.addRecursively(root, key);
+    }
+
+    private BinarySearchTreeNode<K> addRecursively(BinarySearchTreeNode<K> current, K key) {
+        if (current == null)
+            return new BinarySearchTreeNode<>(key);
+        int compareResult = key.compareTo(current.key);
+        if (compareResult == 0 ) return current;
+        if (compareResult < 0)
+            current.left = addRecursively(current.left, key);
+        else
+            current.right = addRecursively(current.right, key);
+        return current;
+    }
+
+    public int getSize(){
+        return this.getSizeRecursive(root);
+    }
+
+    private int getSizeRecursive(BinarySearchTreeNode<K> current) {
+        return current == null ? 0 : 1 + this.getSizeRecursive(current.left)
+                + this.getSizeRecursive(current.right);
     }
 }
