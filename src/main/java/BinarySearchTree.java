@@ -25,4 +25,18 @@ public class BinarySearchTree<K extends Comparable<K>> {
         return current == null ? 0 : 1 + this.getSizeRecursive(current.left)
                 + this.getSizeRecursive(current.right);
     }
+
+    public K search(K key) {
+        return searchRecursively(root, key);
+    }
+
+    private K searchRecursively(BinarySearchTreeNode<K> current, K key) {
+        if (current == null || current.key == key)
+            return key;
+        int compareResult = key.compareTo(current.key);
+        if (compareResult < 0)
+            return searchRecursively(current.left, key);
+        else
+            return searchRecursively(current.right, key);
+    }
 }
